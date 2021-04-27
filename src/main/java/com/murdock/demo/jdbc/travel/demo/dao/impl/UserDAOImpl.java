@@ -19,11 +19,11 @@ public class UserDAOImpl implements UserDAO {
     private static final String NAMESPACE = UserDAO.class.getSimpleName();
 
     private static final String INSET_USER_ID = NAMESPACE + ".insertUser";
-    private static final String QUERY_USER_LIST_ID = NAMESPACE + ".QUERY_USER_LIST_ID";
-    private static final String COUNT_USER_LIST_ID = NAMESPACE + ".COUNT_USER_LIST_ID";
-    private static final String GET_MAX_USER_ID_ID = NAMESPACE + ".GET_MAX_USER_ID_ID";
-    private static final String GET_MIN_USER_ID_ID = NAMESPACE + ".GET_MIN_USER_ID_ID";
-    private static final String SCAN_USER_LIST_ID = NAMESPACE + ".SCAN_USER_LIST_ID";
+    private static final String QUERY_USER_LIST_ID = NAMESPACE + ".queryUserList";
+    private static final String COUNT_USER_LIST_ID = NAMESPACE + ".countUserList";
+    private static final String GET_MAX_USER_ID_ID = NAMESPACE + ".getMaxUserId";
+    private static final String GET_MIN_USER_ID_ID = NAMESPACE + ".getMinUserId";
+    private static final String SCAN_USER_LIST_ID = NAMESPACE + ".scanUserList";
     private static final String QUERY_USER_ID = NAMESPACE + ".queryUser";
 
     private final SqlSessionTemplate sqlSessionTemplate;

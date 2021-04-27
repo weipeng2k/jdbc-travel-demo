@@ -75,5 +75,44 @@
         where id=#{id, jdbcType=BIGINT}
     </select>
 
+    <select id="queryUserList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="columns" />
+        from user
+        where level_type=#{param.levelType, jdbcType=VARCHAR}
+        order by id desc
+        limit #{skip, jdbcType=INTEGER},#{limit, jdbcType=INTEGER}
+    </select>
+
+    <select id="countUserList" parameterType="com.murdock.demo.jdbc.travel.demo.dao.param.QueryUserListDAOParam" resultType="java.lang.Integer">
+        select
+        count(*)
+        from user
+        where level_type=#{levelType, jdbcType=VARCHAR}
+    </select>
+
+    <select id="getMaxUserId" parameterType="com.murdock.demo.jdbc.travel.demo.dao.param.QueryUserListDAOParam" resultType="java.lang.Long">
+        select
+        max(id)
+        from user
+        where level_type=#{levelType, jdbcType=VARCHAR}
+    </select>
+
+    <select id="getMinUserId" parameterType="com.murdock.demo.jdbc.travel.demo.dao.param.QueryUserListDAOParam" resultType="java.lang.Long">
+        select
+        min(id)
+        from user
+        where level_type=#{levelType, jdbcType=VARCHAR}
+    </select>
+
+    <select id="scanUserList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="columns" />
+        from user
+        <![CDATA[
+        where id >= #{startIncludeId, jdbcType=BIGINT} and id < #{endExcludeId, jdbcType=BIGINT}
+        ]]>
+    </select>
+
 
 </mapper>

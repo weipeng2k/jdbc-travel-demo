@@ -3,6 +3,7 @@ package com.murdock.demo.jdbc.travel.demo.dao;
 import com.murdock.demo.jdbc.travel.demo.config.MybatisConfig;
 import com.murdock.demo.jdbc.travel.demo.dao.dataobject.UserDO;
 import com.murdock.demo.jdbc.travel.demo.dao.impl.UserDAOImpl;
+import com.murdock.demo.jdbc.travel.demo.dao.param.QueryUserListDAOParam;
 import com.murdock.demo.jdbc.travel.demo.gen.IntGen;
 import com.murdock.demo.jdbc.travel.demo.gen.StringGen;
 import com.murdock.demo.jdbc.travel.demo.gen.impl.IntGenImpl;
@@ -19,6 +20,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -62,22 +65,115 @@ public class UserDAOTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Test
     public void queryUserList() {
+        UserDO userDO = new UserDO();
+        userDO.setAge(intGen.gen(18, 35));
+        userDO.setEmail(stringGen.gen("email"));
+        userDO.setDingTalkNo(stringGen.gen("ding"));
+        userDO.setUserName(stringGen.gen("userName"));
+        userDO.setLevel(intGen.gen(1, 15));
+        userDO.setLevelType(stringGen.gen("M", "P"));
+        userDO.setNickName(stringGen.gen("nickName"));
+        userDO.setPhoneNum(stringGen.gen("p"));
+        userDO.setWorkNum(stringGen.gen("w"));
+        userDO.setSex(intGen.gen(0, 2));
+        userDO.setType(intGen.gen(1, 10));
+
+        for (int i = 0; i < 10; i++) {
+            userDAO.insetUser(userDO);
+        }
+
+        QueryUserListDAOParam param = new QueryUserListDAOParam();
+        param.setLevelType("M");
+        List<UserDO> userDOS = userDAO.queryUserList(param, 100, 10);
+        assertTrue(userDOS.size() > 0);
     }
 
     @Test
     public void countUserList() {
+        UserDO userDO = new UserDO();
+        userDO.setAge(intGen.gen(18, 35));
+        userDO.setEmail(stringGen.gen("email"));
+        userDO.setDingTalkNo(stringGen.gen("ding"));
+        userDO.setUserName(stringGen.gen("userName"));
+        userDO.setLevel(intGen.gen(1, 15));
+        userDO.setLevelType(stringGen.gen("M", "P"));
+        userDO.setNickName(stringGen.gen("nickName"));
+        userDO.setPhoneNum(stringGen.gen("p"));
+        userDO.setWorkNum(stringGen.gen("w"));
+        userDO.setSex(intGen.gen(0, 2));
+        userDO.setType(intGen.gen(1, 10));
+
+        for (int i = 0; i < 10; i++) {
+            userDAO.insetUser(userDO);
+        }
+
+        QueryUserListDAOParam param = new QueryUserListDAOParam();
+        param.setLevelType("P");
+        int i = userDAO.countUserList(param);
+        System.out.println(i);
+        assertTrue(i > 0);
     }
 
     @Test
     public void getMaxUserId() {
+        UserDO userDO = new UserDO();
+        userDO.setAge(intGen.gen(18, 35));
+        userDO.setEmail(stringGen.gen("email"));
+        userDO.setDingTalkNo(stringGen.gen("ding"));
+        userDO.setUserName(stringGen.gen("userName"));
+        userDO.setLevel(intGen.gen(1, 15));
+        userDO.setLevelType(stringGen.gen("M", "P"));
+        userDO.setNickName(stringGen.gen("nickName"));
+        userDO.setPhoneNum(stringGen.gen("p"));
+        userDO.setWorkNum(stringGen.gen("w"));
+        userDO.setSex(intGen.gen(0, 2));
+        userDO.setType(intGen.gen(1, 10));
+
+        for (int i = 0; i < 10; i++) {
+            userDAO.insetUser(userDO);
+        }
+
+        QueryUserListDAOParam param = new QueryUserListDAOParam();
+        param.setLevelType("P");
+        long start = System.currentTimeMillis();
+        long maxUserId = userDAO.getMaxUserId(param);
+        System.err.println("cost:" + (System.currentTimeMillis() - start));
+        System.out.println(maxUserId);
     }
 
     @Test
     public void getMinUserId() {
+        UserDO userDO = new UserDO();
+        userDO.setAge(intGen.gen(18, 35));
+        userDO.setEmail(stringGen.gen("email"));
+        userDO.setDingTalkNo(stringGen.gen("ding"));
+        userDO.setUserName(stringGen.gen("userName"));
+        userDO.setLevel(intGen.gen(1, 15));
+        userDO.setLevelType(stringGen.gen("M", "P"));
+        userDO.setNickName(stringGen.gen("nickName"));
+        userDO.setPhoneNum(stringGen.gen("p"));
+        userDO.setWorkNum(stringGen.gen("w"));
+        userDO.setSex(intGen.gen(0, 2));
+        userDO.setType(intGen.gen(1, 10));
+
+        for (int i = 0; i < 10; i++) {
+            userDAO.insetUser(userDO);
+        }
+
+        QueryUserListDAOParam param = new QueryUserListDAOParam();
+        param.setLevelType("P");
+        long start = System.currentTimeMillis();
+        long minUserId = userDAO.getMinUserId(param);
+        System.err.println("cost:" + (System.currentTimeMillis() - start));
+        System.out.println(minUserId);
     }
 
     @Test
     public void scanUserList() {
+        long start = System.currentTimeMillis();
+        List<UserDO> userDOS = userDAO.scanUserList(2L, 100L);
+        System.out.println("cost:" + (System.currentTimeMillis() - start));
+        System.out.println(userDOS.size());
     }
 
     @Configuration
